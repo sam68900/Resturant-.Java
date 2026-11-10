@@ -1,0 +1,79 @@
+class Rider {
+    String riderName;
+    String plateNumber;
+    double riderRating;
+
+    Rider(String riderName, String plateNumber, double riderRating) {
+        this.riderName = riderName;
+        this.plateNumber = plateNumber;
+        this.riderRating = riderRating;
+    }
+}
+class Trip {
+    String tripID;
+    static int count = 0;
+    String pickupLocation;
+    String dropoffLocation;
+    double distance;
+    Rider rider;
+    static double baseFare = 50.0;
+    Trip(String pickupLocation, String dropoffLocation, Rider rider) {
+        count++;
+        this.tripID = "TID" + count;
+        this.pickupLocation = pickupLocation;
+        this.dropoffLocation = dropoffLocation;
+        this.distance = 0.0;
+        this.rider = rider;
+    }
+    Trip(String pickupLocation, String dropoffLocation,
+         double distance, Rider rider) {
+        count++;
+        this.tripID = "TID" + count;
+        this.pickupLocation = pickupLocation;
+        this.dropoffLocation = dropoffLocation;
+        this.distance = distance;
+        this.rider = rider;
+    }
+    void displayInfo() {
+        System.out.println("\nTrip ID: " + tripID);
+        System.out.println("Pickup Location: " + pickupLocation);
+        System.out.println("Drop-off Location: " + dropoffLocation);
+        System.out.println("Distance: " + distance + " km");
+        System.out.println("Base Fare: " + baseFare);
+
+        System.out.println("--- Rider Information ---");
+        System.out.println("Rider Name: " + rider.riderName);
+        System.out.println("Plate Number: " + rider.plateNumber);
+        System.out.println("Rider Rating: " + rider.riderRating);;
+    }
+    boolean hasSameRider(Trip t) {
+        if(this.rider.riderName==t.rider.riderName && this.rider.plateNumber==t.rider.plateNumber) return true;
+        else return false;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Rider r1 = new Rider("Rahim", "DHA-1234", 4.8);
+        Rider r2 = new Rider("Karim", "DHA-5678", 4.5);
+        System.out.println("===== TRIP INFORMATION =====");
+        Trip t1 = new Trip("Sylhet", "Dhaka", r1);
+        t1.displayInfo();
+        Trip t2 = new Trip("Zindabazar", "Ambarkhana",
+                5.5, r2);
+        t2.displayInfo();
+        Trip t3 = new Trip("Dhaka", "Uttara",
+                12.5, r1);
+        t3.displayInfo();
+        System.out.println("\n===== RIDER COMPARISON =====");
+        if (t1.hasSameRider(t2)) {
+            System.out.println("Trip 1 and Trip 2 have the same rider.");
+        } else {
+            System.out.println("Trip 1 and Trip 2 have different riders.");
+        }
+        if (t1.hasSameRider(t3)) {
+            System.out.println("Trip 1 and Trip 3 have the same rider.");
+        } else {
+            System.out.println("Trip 1 and Trip 3 have different riders.");
+        }
+    }
+}
