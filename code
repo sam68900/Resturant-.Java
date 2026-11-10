@@ -1,0 +1,172 @@
+class Restaurant {
+    private String name;
+    String cuisineType;
+    private String branchArea;
+
+    // Non-parameterized constructor
+    Restaurant() {
+        name = "Unknown";
+        cuisineType = "Unknown";
+        branchArea = "Unknown";
+    }
+
+    // Parameterized constructor
+    Restaurant(String name, String cuisineType, String branchArea) {
+        this.name = name;
+        this.cuisineType = cuisineType;
+        this.branchArea = branchArea;
+    }
+
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBranchArea() {
+        return branchArea;
+    }
+
+    public void setBranchArea(String branchArea) {
+        this.branchArea = branchArea;
+    }
+
+    // Display restaurant details
+    void display() {
+        System.out.println("Restaurant Name: " + name);
+        System.out.println("Cuisine Type: " + cuisineType);
+        System.out.println("Branch Area: " + branchArea);
+    }
+}
+
+class Order {
+    int orderID;
+    String customerName;
+    String deliveryAddress;
+    int numberOfItems;
+
+    // Non-parameterized constructor
+    Order() {
+        orderID = 0;
+        customerName = "Unknown";
+        deliveryAddress = "Unknown";
+        numberOfItems = 0;
+    }
+
+    // Parameterized constructor
+    Order(int orderID, String customerName, String deliveryAddress, int numberOfItems) {
+        this.orderID = orderID;
+        this.customerName = customerName;
+        this.deliveryAddress = deliveryAddress;
+        this.numberOfItems = numberOfItems;
+    }
+
+    // Getters and Setters
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public int getNumberOfItems() {
+        return numberOfItems;
+    }
+
+    public void setNumberOfItems(int numberOfItems) {
+        this.numberOfItems = numberOfItems;
+    }
+
+    // Display complete order details
+    void display() {
+        display(true);
+    }
+
+    // Overloaded display method
+    void display(boolean showAddress) {
+        System.out.println("\nOrder ID: " + orderID);
+        System.out.println("Customer Name: " + customerName);
+
+        if (showAddress) {
+            System.out.println("Delivery Address: " + deliveryAddress);
+        }
+
+        System.out.println("Number of Items: " + numberOfItems);
+    }
+
+    // Static method to find order with maximum items
+    static Order findMaxItems(Order... orders) {
+
+        if (orders == null || orders.length == 0) {
+            return null;
+        }
+
+        Order max = orders[0];
+
+        for (int i = 1; i < orders.length; i++) {
+            if (orders[i] != null &&
+                orders[i].numberOfItems > max.numberOfItems) {
+                max = orders[i];
+            }
+        }
+
+        return max;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Creating three Order objects
+        Order o1 = new Order(101, "Rahim", "Sylhet", 4);
+        Order o2 = new Order(102, "Karim", "Dhaka", 7);
+        Order o3 = new Order(103, "Nadia", "Chittagong", 5);
+
+        // Calling both display methods
+        o1.display();
+        o2.display(false);
+        o3.display(true);
+
+        // Comparison with three orders
+        System.out.println("\nMaximum order among three orders:");
+        Order max1 = Order.findMaxItems(o1, o2, o3);
+
+        if (max1 != null) {
+            max1.display();
+        }
+
+        // Comparison with two orders
+        System.out.println("\nMaximum order among two orders:");
+        Order max2 = Order.findMaxItems(o1, o3);
+
+        if (max2 != null) {
+            max2.display();
+        }
+
+        // Restaurant object
+        Restaurant r1 = new Restaurant("Pizza Hut", "Italian", "Sylhet");
+
+        System.out.println("\nRestaurant Details:");
+        r1.display();
+    }
+}
