@@ -1,0 +1,137 @@
+class Doctor {
+    String name;
+    String specialization;
+    int chamberRoom;
+
+    Doctor() {
+        name = "Not Set";
+        specialization = "General";
+        chamberRoom = 0;
+    }
+
+    Doctor(String name, String specialization, int chamberRoom) {
+        this.name = name;
+        this.specialization = specialization;
+        this.chamberRoom = chamberRoom;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    String getName() {
+        return name;
+    }
+
+    void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    String getSpecialization() {
+        return specialization;
+    }
+
+    void setChamberRoom(int chamberRoom) {
+        this.chamberRoom = chamberRoom;
+    }
+
+    int getChamberRoom() {
+        return chamberRoom;
+    }
+}
+
+class Appointment {
+    int appointmentId;
+    String patientName;
+    double duration;
+    private double feePerHour;
+
+    Appointment() {
+        appointmentId = 0;
+        patientName = "Unknown";
+        duration = 0.0;
+        feePerHour = 0.0;
+    }
+
+    Appointment(int appointmentId, String patientName, double duration, double feePerHour) {
+        this.appointmentId = appointmentId;
+        this.patientName = patientName;
+        this.duration = duration;
+        this.feePerHour = feePerHour;
+    }
+
+    void setFeePerHour(double feePerHour) {
+        this.feePerHour = feePerHour;
+    }
+
+    double getFeePerHour() {
+        return feePerHour;
+    }
+
+    double getDuration() {
+        return duration;
+    }
+
+    void display() {
+        System.out.println("Appointment ID: " + appointmentId);
+        System.out.println("Patient Name: " + patientName);
+        System.out.println("Duration: " + duration + " hours");
+        System.out.println("Fee per hour: " + feePerHour);
+        System.out.println("Total Fee: " + (duration * feePerHour));
+        System.out.println();
+    }
+
+    void display(boolean showPatient) {
+        System.out.println("Appointment ID: " + appointmentId);
+        if (showPatient) {
+            System.out.println("Patient Name: " + patientName);
+        }
+        System.out.println("Duration: " + duration + " hours");
+        System.out.println("Fee per hour: " + feePerHour);
+        System.out.println("Total Fee: " + (duration * feePerHour));
+        System.out.println();
+    }
+
+    static Appointment findLongest(Appointment... apps) {
+        if (apps.length == 0) {
+            System.out.println("No appointments passed.");
+            return null;
+        }
+
+        Appointment max = apps[0];
+        for (int i = 1; i < apps.length; i++) {
+            if (apps[i].duration > max.duration) {
+                max = apps[i];
+            }
+        }
+        return max;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Doctor d1 = new Doctor("Dr. Hasan", "Medicine", 204);
+
+        Appointment a1 = new Appointment(1, "Rahim", 1.5, 500);
+        Appointment a2 = new Appointment(2, "Karim", 2.0, 600);
+        Appointment a3 = new Appointment(3, "Sadia", 1.0, 500);
+
+        System.out.println("--- Normal Display ---");
+        a1.display();
+
+        System.out.println("--- Display without Patient Info ---");
+        a2.display(false);
+
+        System.out.println("--- Longest out of 3 ---");
+        Appointment res1 = Appointment.findLongest(a1, a2, a3);
+        if (res1 != null) {
+            res1.display();
+        }
+
+        System.out.println("--- Longest out of 2 ---");
+        Appointment res2 = Appointment.findLongest(a1, a3);
+        if (res2 != null) {
+            res2.display();
+        }
+    }
+}
